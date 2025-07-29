@@ -296,13 +296,13 @@
             top: 50%;
             left: 50%;
             transform: translateX(-50%) translateY(-50%);
-            font-size: 80px;
+            font-size: min(15vw, 80px);
             font-weight: bold;
             color: #fff;
             text-shadow: 0 0 20px rgba(255,255,255,0.5);
             z-index: 10;
             background: rgba(0,0,0,0.3);
-            padding: 20px 40px;
+            padding: min(4vw, 20px) min(8vw, 40px);
             border-radius: 20px;
             border: 3px solid rgba(255,255,255,0.2);
         }
@@ -310,30 +310,30 @@
         /* 설정 버튼 */
         .settings-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: min(4vw, 20px);
+            right: min(4vw, 20px);
             background: rgba(52, 73, 94, 0.9);
             border: none;
             color: white;
-            padding: 15px;
+            padding: min(3vw, 15px);
             border-radius: 50%;
             cursor: pointer;
-            font-size: 24px;
+            font-size: min(6vw, 24px);
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .sound-btn {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: min(4vw, 20px);
+            left: min(4vw, 20px);
             background: rgba(52, 73, 94, 0.9);
             border: none;
             color: white;
-            padding: 15px;
+            padding: min(3vw, 15px);
             border-radius: 50%;
             cursor: pointer;
-            font-size: 24px;
+            font-size: min(6vw, 24px);
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
@@ -508,54 +508,32 @@
         /* 모바일 최적화 */
         @media (max-width: 480px) {
             .pedestrian-signal {
-                width: 280px;
-                height: 600px;
-                padding: 25px 15px;
+                border: 6px solid #34495e;
+                border-radius: 30px;
             }
             
             .signal-display {
-                width: 220px;
-                height: 240px;
+                border: 3px solid #444;
+                border-radius: 20px;
             }
             
             .countdown-display {
-                width: 160px;
-                height: 60px;
-                font-size: 36px;
-            }
-            
-            .timer-display {
-                font-size: 50px;
-                padding: 15px 25px;
-            }
-            
-            .traffic-light-container {
-                padding: 15px;
+                border: 3px solid #333;
+                border-radius: 12px;
             }
         }
 
         /* 가로 모드 대응 */
         @media (orientation: landscape) and (max-height: 600px) {
             .pedestrian-signal {
-                width: 240px;
-                height: 500px;
-                padding: 20px 10px;
-            }
-            
-            .signal-display {
-                width: 180px;
-                height: 200px;
-            }
-            
-            .countdown-display {
-                width: 120px;
-                height: 50px;
-                font-size: 28px;
+                width: min(50vw, 300px);
+                height: min(90vh, 500px);
+                padding: 2vh 2vw;
             }
             
             .timer-display {
-                font-size: 40px;
-                padding: 10px 20px;
+                font-size: min(12vw, 60px);
+                padding: min(2vw, 15px) min(4vw, 25px);
             }
         }
     </style>
@@ -656,8 +634,8 @@
                 <div class="setting-group">
                     <div style="background: rgba(52, 152, 219, 0.2); padding: 15px; border-radius: 10px; font-size: 14px;">
                         <strong>📏 계산 공식:</strong><br>
-                        • 일반 도로: 진입시간 7초 + (거리 × 1초/m)<br>
-                        • 어린이 보호구역: 진입시간 7초 + (거리 × 0.8초/m)
+                        • 일반 도로: 진입시간 7초 + (거리 × 0.8초/m)<br>
+                        • 어린이 보호구역: 진입시간 7초 + (거리 × 1.2초/m)
                     </div>
                 </div>
             </div>
@@ -696,11 +674,11 @@
             
             let walkTime;
             if (roadType === 'school') {
-                // 어린이 보호구역: 7초 + (거리 × 0.8초/m)
-                walkTime = Math.ceil(7 + (distance * 0.8));
+                // 어린이 보호구역: 7초 + (거리 × 1.2초/m) - 더 많은 시간 필요
+                walkTime = Math.ceil(7 + (distance * 1.2));
             } else {
-                // 일반 도로: 7초 + (거리 × 1초/m)
-                walkTime = Math.ceil(7 + distance);
+                // 일반 도로: 7초 + (거리 × 0.8초/m)
+                walkTime = Math.ceil(7 + (distance * 0.8));
             }
             
             document.getElementById('walkTime').value = walkTime;
